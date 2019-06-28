@@ -141,7 +141,8 @@ export class SwApiService {
   let values = [['years', 365], ['month', 30], ['week', 7], ['day', 1], ['year', 365], ['months', 30], ['weeks', 7], ['days', 1]];
   values.forEach(e => {
     if (e[0] == stringTime) {
-      days = e[1] * numberDays;
+      let num: any = e[1];
+      days = num * numberDays;
     }
   });
   return days;

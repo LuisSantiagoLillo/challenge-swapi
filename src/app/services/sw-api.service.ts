@@ -14,6 +14,8 @@ export class SwApiService {
   starships: Starship[] = [];
   distanceMGLT: number;
   totalStarships: number;
+  loading: boolean = false;
+  error: boolean = false;
   url_sw_api: string = 'https://swapi.co/api/starships/';
   // Buttons NEXT & PREVIUS
   url_sw_api_next: string;
@@ -27,9 +29,8 @@ export class SwApiService {
 
   buildStarshipsArr(resp: any): void {
     this.starships = [];
-    console.log(resp);
     this.url_sw_api_next = resp.next;
-    this.url_sw_api_previus = resp.previus;
+    this.url_sw_api_previus = resp.previous;
     this.totalStarships = resp.count;
     resp.results.forEach(element => {
       if (element.MGLT !== 'unknown' && element.consumables !== 'unknown') {
@@ -48,25 +49,63 @@ export class SwApiService {
         };
         this.starships.push(starship);
       }
-
     });
     console.log(this.starships);
   }
 
 
   getStarshipsPerPage(page: number) {
+    this.loading = true;
     this.http.get(`${this.url_sw_api}?page=${page}`).toPromise()
-      .then(resp => this.buildStarshipsArr(resp))
-      .catch(err => console.log(err));
+      .then(resp => {
+        setTimeout(() => {
+          this.loading = false;
+        this.error = false;
+        this.buildStarshipsArr(resp);
+        }, 1000);
+
+      })
+      .catch(err => {
+        this.loading = false;
+        this.error = true;
+        console.log(err);
+      });
   }
 
   getStarshipsNextPage() {
-    return this.http.get(this.url_sw_api_next).toPromise();
+    this.loading = true;
+    this.http.get(this.url_sw_api_next).toPromise()
+      .then(resp => {
+        setTimeout(() => {
+          this.loading = false;
+        this.error = false;
+        this.buildStarshipsArr(resp);
+        }, 1000);
+
+      })
+      .catch(err => {
+        this.loading = false;
+        this.error = true;
+        console.log(err);
+      });
   }
 
   getStarshipsPreviusPage() {
-    return this.http.get(this.url_sw_api_previus).toPromise();
-  }
+    this.loading = true;
+    this.http.get(this.url_sw_api_previus).toPromise()
+      .then(resp => {
+        setTimeout(() => {
+          this.loading = false;
+        this.error = false;
+        this.buildStarshipsArr(resp);
+        }, 1000);
+
+      })
+      .catch(err => {
+        this.loading = false;
+        this.error = true;
+        console.log(err);
+      });  }
 
 
   /*
@@ -90,7 +129,7 @@ export class SwApiService {
     let consumableSplit = consumables.split(' ');
     if (consumableSplit.length == 2) {
       let consumableDays = this.getDays(parseInt(consumableSplit[0]), consumableSplit[1]);
-      let hours = 1000000/parseInt(MGLT);
+      let hours = this.distanceMGLT/parseInt(MGLT);
       let days = hours / 24;
       stops = days / consumableDays;
     }

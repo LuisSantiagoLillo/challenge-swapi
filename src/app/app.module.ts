@@ -24,6 +24,9 @@ import { StarshipsListComponent } from './pages/starships-list/starships-list.co
 
 // COMPONENTS
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { LoadingComponent } from './components/loading/loading.component';
+import { ErrorComponent } from './components/error/error.component';
+import { PaginationButtonsComponent } from './pages/starships-list/pagination-buttons/pagination-buttons.component';
 
 
 @NgModule({
@@ -35,6 +38,9 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     HomeComponent,
     NoImagePipe,
     CountStopsPipe,
+    LoadingComponent,
+    ErrorComponent,
+    PaginationButtonsComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,8 @@
+<div class="align-content-end">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item" [ngClass]="{'disabled': _swService.url_sw_api_previus == null}"><a class="page-link" (click)="searchPreviousStarships()">Previous</a></li>
+            <li class="page-item" [ngClass]="{'disabled': _swService.url_sw_api_next == null}"><a class="page-link" (click)="searchNextStarships()">Next</a></li>
+        </ul>
+    </nav>
+</div>

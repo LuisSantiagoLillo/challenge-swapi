@@ -14,12 +14,12 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active" routerLinkActive="active">
-                <a class="nav-link" routerLink="">MGLT calculator</a>
+                <!-- <a class="nav-link" routerLink="">MGLT calculator</a> -->
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <!-- (key)="searchStarships(searchStarship.value)" -->
-            <input class="form-control mr-sm-2" #searchStarship type="number" placeholder="Input a distance in mega lights (MGLT)..." min="1" aria-label="Search">
+            <input class="form-control mr-sm-2" #searchStarship type="number" placeholder="Input a distance in MGLT" min="1" aria-label="Search">
             <button class="btn btn-sm btn-outline-light ml-2" type="button" (click)="searchStarships(searchStarship.value)">search</button>
         </form>
     </div>

@@ -1,20 +1,25 @@
-<p>
-    Mega Lights distance: {{distanceMGLT}} MGLT</p>
-
 <div class="container animated fadeIn">
     <div class="row">
-        <div class="col">
+        <div class="col-12">
+            <app-error *ngIf="_swService.error && !_swService.loading"></app-error>
+        </div>
+        <div class="col-12" *ngIf="!_swService.error">
+            <app-pagination-buttons></app-pagination-buttons>
+        </div>
+        <div class="col-12">
+            <app-loading *ngIf="_swService.loading"></app-loading>
+        </div>
+        <div class="col-12" *ngIf="!_swService.loading && !_swService.error">
+            <h4 class="mb-2"> Mega Lights distance: {{distanceMGLT}} MGLT</h4>
             <div class="card-columns animated fadeIn">
                 <div *ngFor="let starship of _swService.starships" class="card">
-                    <img src="../../../assets/img/starships/millennium-falcon.jpg" alt="" class="card-img-top img-circle img-fluid">
+                    <img [src]="starship.name | noImage" alt="" class="card-img-top img-circle img-fluid">
                     <div class="card-body">
-                        <div aria-label="Basic example">
-                            <!-- class="btn-group" role="group" -->
-                            <button (click)="goToStarshipItem()" type="button" class="btn btn-primary btn-block">{{starship.name}}</button>
-                        </div>
-                        <h5 class="card-title">Total Stops needed: {{starship.stops}}</h5>
-                        <!--<span *ngFor="let artist of exito.artists" class="badge badge-pill badge-primary">{{artist.name}}</span>-->
-                        <p class="card-text">{{starship.name}}</p>
+                        <h3>{{starship.name}}</h3>
+                        <h5 class="card-title">{{starship.stops | countStops}}</h5>
+                        <hr class="bg-dark">
+                        <p class="card-text"><strong>Model: </strong> {{starship.model}}</p>
+                        <p class="card-text"><strong>Manufacter: </strong>{{starship.manufacturer}}</p>
                     </div>
                 </div>
             </div>

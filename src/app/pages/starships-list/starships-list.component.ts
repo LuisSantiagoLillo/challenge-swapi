@@ -12,7 +12,6 @@ export class StarshipsListComponent implements OnInit {
   distanceMGLT: string;
 
   constructor(
-    private router: Router,
     private activatedRoute: ActivatedRoute,
     public _swService: SwApiService
   ) {
@@ -25,5 +24,4 @@ export class StarshipsListComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }
